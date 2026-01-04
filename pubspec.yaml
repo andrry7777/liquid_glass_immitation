@@ -1,0 +1,21 @@
+name: liquid_glass
+version: 0.1.0
+description: A Flutter package that provides a root widget and surfaces to recreate iOS-style liquid glass across an app.
+repository: https://example.com/liquid_glass
+publish_to: none
+
+environment:
+  sdk: ">=2.19.0 <4.0.0"
+  flutter: ">=3.16.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
