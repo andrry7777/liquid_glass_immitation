@@ -86,16 +86,17 @@ class GlassLikeSurfaceDemoPage extends StatelessWidget {
         context: context,
         builder: (context) => GlassLikeSurfaceDialog(
           config: _config,
-          title: const Text('Session expired'),
-          content: const Text('Please sign in again to continue.'),
+          title: const Text('Do you want to delete this Account?'),
+          content: const Text('You cannot undo this action'),
           actions: [
             GlassLikeSurfaceDialogAction(
+              isDefaultAction: true,
               child: const Text('Cancel'),
               onPressed: () => Navigator.of(context).pop(),
             ),
             GlassLikeSurfaceDialogAction(
-              isDefaultAction: true,
-              child: const Text('Sign in'),
+              isDestructive: true,
+              child: const Text('Delete'),
               onPressed: () => Navigator.of(context).pop(),
             ),
           ],
