@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class LiquidGlassStyleScope extends InheritedWidget {
   const LiquidGlassStyleScope({
+    super.key,
     required this.brightness,
     required super.child,
   });

@@ -9,5 +9,3 @@ cd example
 flutter pub get
 flutter run
 ```
-
-`flutter run` が利用できない環境では、Flutter SDK をセットアップした上で実行してください。

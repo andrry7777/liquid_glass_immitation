@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import 'config.dart';
 import 'liquid_glass_app_root.dart';
@@ -73,7 +74,7 @@ class _LiquidGlassSurfaceState extends State<LiquidGlassSurface> {
             : effectiveConfig.blurSigma;
         final blurDownsample = math.max(1.0, effectiveConfig.blurDownsample);
         final distortionStrength = effectiveConfig.reduceMotion
-            ? 0
+            ? 0.0
             : effectiveConfig.distortionStrength;
         final usesSharedBlur = groupScope != null;
         final resolvedTint = _adaptiveTint ?? effectiveConfig.tintColor;
@@ -109,8 +110,8 @@ class _LiquidGlassSurfaceState extends State<LiquidGlassSurface> {
                   boxShadow: [
                     BoxShadow(
                       blurRadius: 24,
-                      color: Colors.black.withOpacity(
-                        effectiveConfig.shadowStrength,
+                      color: Colors.black.withValues(
+                        alpha: effectiveConfig.shadowStrength,
                       ),
                       offset: const Offset(0, 12),
                     ),
@@ -251,10 +252,10 @@ class _LiquidGlassSurfaceState extends State<LiquidGlassSurface> {
       (g / count).round(),
       (b / count).round(),
     );
-    final double alpha = config.tintColor.opacity;
+    final double alpha = config.tintColor.a;
     final Color blendedTint = Color.lerp(
       config.tintColor,
-      averageColor.withOpacity(alpha),
+      averageColor.withValues(alpha: alpha),
       0.6,
     )!;
     final brightness = ThemeData.estimateBrightnessForColor(averageColor);
@@ -292,8 +293,8 @@ class _GlassHighlightPainter extends CustomPainter {
       center: Alignment(dx, dy),
       radius: 1.2,
       colors: [
-        Colors.white.withOpacity(0.45 * highlightStrength),
-        Colors.white.withOpacity(0.0),
+        Colors.white.withValues(alpha: 0.45 * highlightStrength),
+        Colors.white.withValues(alpha: 0.0),
       ],
       stops: const [0.0, 1.0],
     );
@@ -305,7 +306,7 @@ class _GlassHighlightPainter extends CustomPainter {
     canvas.drawRRect(rrect, paint);
 
     final edgePaint = Paint()
-      ..color = Colors.white.withOpacity(0.22 * highlightStrength)
+      ..color = Colors.white.withValues(alpha: 0.22 * highlightStrength)
       ..style = PaintingStyle.stroke
       ..strokeWidth = math.max(1.0, size.shortestSide * 0.005);
 

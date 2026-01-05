@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'dart:typed_data';
 
 Float64List buildDistortionMatrix({
   required double distortionStrength,

@@ -36,8 +36,7 @@ class _LiquidGlassDemoAppState extends State<LiquidGlassDemoApp> {
           distortionStrength: _distortionStrength,
           adaptiveTint: _adaptiveTint,
           reduceMotion: _reduceMotion,
-          onBlurSigmaChanged: (value) =>
-              setState(() => _blurSigma = value),
+          onBlurSigmaChanged: (value) => setState(() => _blurSigma = value),
           onDistortionStrengthChanged: (value) =>
               setState(() => _distortionStrength = value),
           onAdaptiveTintChanged: (value) =>
@@ -146,11 +145,11 @@ class LiquidGlassDemoPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  LiquidGlassGroup(
+                  const LiquidGlassGroup(
                     child: Wrap(
                       spacing: 16,
                       runSpacing: 16,
-                      children: const [
+                      children: [
                         _MetricCard(title: 'Focus', value: '84%'),
                         _MetricCard(title: 'Flow', value: '2.4x'),
                         _MetricCard(title: 'Pulse', value: '118'),
@@ -208,8 +207,8 @@ class _Backdrop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: const BoxDecoration(
+    return const DecoratedBox(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -222,7 +221,7 @@ class _Backdrop extends StatelessWidget {
         ),
       ),
       child: Stack(
-        children: const [
+        children: [
           _Bubble(
             alignment: Alignment(-0.8, -0.7),
             color: Color(0xFF7C4DFF),
@@ -264,10 +263,10 @@ class _Bubble extends StatelessWidget {
         height: size,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: color.withOpacity(0.45),
+          color: color.withValues(alpha: 0.45),
           boxShadow: [
             BoxShadow(
-              color: color.withOpacity(0.35),
+              color: color.withValues(alpha: 0.35),
               blurRadius: 60,
             ),
           ],

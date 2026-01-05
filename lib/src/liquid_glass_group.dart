@@ -43,6 +43,7 @@ class LiquidGlassGroup extends StatelessWidget {
 
 class LiquidGlassGroupScope extends InheritedWidget {
   const LiquidGlassGroupScope({
+    super.key,
     required super.child,
   });
 
