@@ -92,6 +92,7 @@ Non-Functional Requirements
 		✅ 対応済み: サイズ0ガードとレイアウト分岐を実装。
 	•	Developer Ergonomics: Using the package should be straightforward – e.g. one should be able to wrap any widget with a LiquidGlass container and get the effect. Clear documentation and sensible defaults (matching Apple’s default look) are important so developers can adopt it easily.
 		✅ 対応済み: LiquidGlassAppRoot と LiquidGlassSurface の2ステップ構成で導入可能。
+		✅ 対応済み: example ディレクトリに動作確認用アプリを追加。
 
 Recommended API Usage & Technologies
 
