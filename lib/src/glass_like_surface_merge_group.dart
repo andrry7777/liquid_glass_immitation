@@ -6,26 +6,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import 'config.dart';
-import 'liquid_glass_app_root.dart';
-import 'liquid_glass_group.dart';
-import 'liquid_glass_style.dart';
+import 'glass_like_surface_app_root.dart';
+import 'glass_like_surface_group.dart';
+import 'glass_like_surface_style.dart';
 import 'matrix_utils.dart';
 
-class LiquidGlassMergeGroup extends StatefulWidget {
-  const LiquidGlassMergeGroup({
+class GlassLikeSurfaceMergeGroup extends StatefulWidget {
+  const GlassLikeSurfaceMergeGroup({
     super.key,
     required this.child,
     this.config,
   });
 
   final Widget child;
-  final LiquidGlassConfig? config;
+  final GlassLikeSurfaceConfig? config;
 
   @override
-  State<LiquidGlassMergeGroup> createState() => _LiquidGlassMergeGroupState();
+  State<GlassLikeSurfaceMergeGroup> createState() => _GlassLikeSurfaceMergeGroupState();
 }
 
-class _LiquidGlassMergeGroupState extends State<LiquidGlassMergeGroup> {
+class _GlassLikeSurfaceMergeGroupState extends State<GlassLikeSurfaceMergeGroup> {
   final Map<GlobalKey, BorderRadius> _targets =
       <GlobalKey, BorderRadius>{};
   List<_MergeTargetInfo> _targetInfo = const <_MergeTargetInfo>[];
@@ -44,7 +44,7 @@ class _LiquidGlassMergeGroupState extends State<LiquidGlassMergeGroup> {
   }
 
   @override
-  void didUpdateWidget(LiquidGlassMergeGroup oldWidget) {
+  void didUpdateWidget(GlassLikeSurfaceMergeGroup oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.config != widget.config) {
       _scheduleToneMapping();
@@ -169,13 +169,13 @@ class _LiquidGlassMergeGroupState extends State<LiquidGlassMergeGroup> {
 
   @override
   Widget build(BuildContext context) {
-    final scopeConfig = liquidGlassConfigOf(context);
+    final scopeConfig = glassLikeSurfaceConfigOf(context);
     final effectiveConfig = widget.config ?? scopeConfig;
-    final pointerOffset = liquidGlassPointerOffsetOf(context);
-    final motionOffset = liquidGlassMotionOffsetOf(context);
-    final groupScope = LiquidGlassGroupScope.maybeOf(context);
+    final pointerOffset = glassLikeSurfacePointerOffsetOf(context);
+    final motionOffset = glassLikeSurfaceMotionOffsetOf(context);
+    final groupScope = GlassLikeSurfaceGroupScope.maybeOf(context);
 
-    return _LiquidGlassMergeScope(
+    return _GlassLikeSurfaceMergeScope(
       state: this,
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -217,7 +217,7 @@ class _LiquidGlassMergeGroupState extends State<LiquidGlassMergeGroup> {
           final hasSurface = path != null && bounds != null && !bounds.isEmpty;
 
           if (!hasSurface) {
-            return LiquidGlassStyleScope(
+            return GlassLikeSurfaceStyleScope(
               brightness: foreground,
               child: widget.child,
             );
@@ -253,7 +253,7 @@ class _LiquidGlassMergeGroupState extends State<LiquidGlassMergeGroup> {
                   ),
                 ),
               ),
-              LiquidGlassStyleScope(
+              GlassLikeSurfaceStyleScope(
                 brightness: foreground,
                 child: widget.child,
               ),
@@ -284,7 +284,7 @@ class _LiquidGlassMergeGroupState extends State<LiquidGlassMergeGroup> {
 
   void _scheduleToneMapping() {
     _toneMappingTimer?.cancel();
-    final config = widget.config ?? const LiquidGlassConfig();
+    final config = widget.config ?? const GlassLikeSurfaceConfig();
     if (!config.adaptiveTint) {
       return;
     }
@@ -295,7 +295,7 @@ class _LiquidGlassMergeGroupState extends State<LiquidGlassMergeGroup> {
     if (!mounted) {
       return;
     }
-    final config = widget.config ?? liquidGlassConfigOf(context);
+    final config = widget.config ?? glassLikeSurfaceConfigOf(context);
     if (!config.adaptiveTint) {
       return;
     }
@@ -303,7 +303,7 @@ class _LiquidGlassMergeGroupState extends State<LiquidGlassMergeGroup> {
     if (unionBounds == null || unionBounds.isEmpty) {
       return;
     }
-    final boundaryKey = liquidGlassRepaintBoundaryKeyOf(context);
+    final boundaryKey = glassLikeSurfaceRepaintBoundaryKeyOf(context);
     final boundaryContext = boundaryKey?.currentContext;
     if (boundaryContext == null) {
       return;
@@ -400,8 +400,8 @@ class _LiquidGlassMergeGroupState extends State<LiquidGlassMergeGroup> {
   }
 }
 
-class LiquidGlassMergeTarget extends StatefulWidget {
-  const LiquidGlassMergeTarget({
+class GlassLikeSurfaceMergeTarget extends StatefulWidget {
+  const GlassLikeSurfaceMergeTarget({
     super.key,
     required this.child,
     this.borderRadius = const BorderRadius.all(Radius.circular(24)),
@@ -413,17 +413,17 @@ class LiquidGlassMergeTarget extends StatefulWidget {
   final EdgeInsets? padding;
 
   @override
-  State<LiquidGlassMergeTarget> createState() => _LiquidGlassMergeTargetState();
+  State<GlassLikeSurfaceMergeTarget> createState() => _GlassLikeSurfaceMergeTargetState();
 }
 
-class _LiquidGlassMergeTargetState extends State<LiquidGlassMergeTarget> {
+class _GlassLikeSurfaceMergeTargetState extends State<GlassLikeSurfaceMergeTarget> {
   final GlobalKey _targetKey = GlobalKey();
-  _LiquidGlassMergeScope? _scope;
+  _GlassLikeSurfaceMergeScope? _scope;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final nextScope = _LiquidGlassMergeScope.maybeOf(context);
+    final nextScope = _GlassLikeSurfaceMergeScope.maybeOf(context);
     if (_scope != nextScope) {
       _scope?.unregisterTarget(_targetKey);
       _scope = nextScope;
@@ -432,7 +432,7 @@ class _LiquidGlassMergeTargetState extends State<LiquidGlassMergeTarget> {
   }
 
   @override
-  void didUpdateWidget(LiquidGlassMergeTarget oldWidget) {
+  void didUpdateWidget(GlassLikeSurfaceMergeTarget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.borderRadius != oldWidget.borderRadius) {
       _scope?.registerTarget(_targetKey, widget.borderRadius);
@@ -457,16 +457,16 @@ class _LiquidGlassMergeTargetState extends State<LiquidGlassMergeTarget> {
   }
 }
 
-class _LiquidGlassMergeScope extends InheritedWidget {
-  const _LiquidGlassMergeScope({
+class _GlassLikeSurfaceMergeScope extends InheritedWidget {
+  const _GlassLikeSurfaceMergeScope({
     required this.state,
     required super.child,
   });
 
-  final _LiquidGlassMergeGroupState state;
+  final _GlassLikeSurfaceMergeGroupState state;
 
-  static _LiquidGlassMergeScope? maybeOf(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<_LiquidGlassMergeScope>();
+  static _GlassLikeSurfaceMergeScope? maybeOf(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<_GlassLikeSurfaceMergeScope>();
   }
 
   void registerTarget(GlobalKey key, BorderRadius radius) {
@@ -478,7 +478,7 @@ class _LiquidGlassMergeScope extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(_LiquidGlassMergeScope oldWidget) => false;
+  bool updateShouldNotify(_GlassLikeSurfaceMergeScope oldWidget) => false;
 }
 
 class _MergeTargetInfo {

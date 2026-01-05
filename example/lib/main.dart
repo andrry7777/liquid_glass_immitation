@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:liquid_glass/liquid_glass.dart';
+import 'package:glass_like_surface/glass_like_surface.dart';
 
 void main() {
-  runApp(const LiquidGlassDemoApp());
+  runApp(const GlassLikeSurfaceDemoApp());
 }
 
-class LiquidGlassDemoApp extends StatefulWidget {
-  const LiquidGlassDemoApp({super.key});
+class GlassLikeSurfaceDemoApp extends StatefulWidget {
+  const GlassLikeSurfaceDemoApp({super.key});
 
   @override
-  State<LiquidGlassDemoApp> createState() => _LiquidGlassDemoAppState();
+  State<GlassLikeSurfaceDemoApp> createState() =>
+      _GlassLikeSurfaceDemoAppState();
 }
 
-class _LiquidGlassDemoAppState extends State<LiquidGlassDemoApp> {
+class _GlassLikeSurfaceDemoAppState extends State<GlassLikeSurfaceDemoApp> {
   double _blurSigma = 20;
   double _distortionStrength = 0.03;
   bool _adaptiveTint = false;
   bool _reduceMotion = false;
 
-  LiquidGlassConfig get _config => LiquidGlassConfig(
+  GlassLikeSurfaceConfig get _config => GlassLikeSurfaceConfig(
         blurSigma: _blurSigma,
         distortionStrength: _distortionStrength,
         adaptiveTint: _adaptiveTint,
@@ -29,9 +30,9 @@ class _LiquidGlassDemoAppState extends State<LiquidGlassDemoApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark(useMaterial3: true),
-      home: LiquidGlassAppRoot(
+      home: GlassLikeSurfaceAppRoot(
         config: _config,
-        child: LiquidGlassDemoPage(
+        child: GlassLikeSurfaceDemoPage(
           blurSigma: _blurSigma,
           distortionStrength: _distortionStrength,
           adaptiveTint: _adaptiveTint,
@@ -49,8 +50,8 @@ class _LiquidGlassDemoAppState extends State<LiquidGlassDemoApp> {
   }
 }
 
-class LiquidGlassDemoPage extends StatelessWidget {
-  const LiquidGlassDemoPage({
+class GlassLikeSurfaceDemoPage extends StatelessWidget {
+  const GlassLikeSurfaceDemoPage({
     super.key,
     required this.blurSigma,
     required this.distortionStrength,
@@ -71,7 +72,7 @@ class LiquidGlassDemoPage extends StatelessWidget {
   final ValueChanged<bool> onAdaptiveTintChanged;
   final ValueChanged<bool> onReduceMotionChanged;
 
-  LiquidGlassConfig get _config => LiquidGlassConfig(
+  GlassLikeSurfaceConfig get _config => GlassLikeSurfaceConfig(
         blurSigma: blurSigma,
         distortionStrength: distortionStrength,
         adaptiveTint: adaptiveTint,
@@ -80,6 +81,28 @@ class LiquidGlassDemoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void showDemoDialog() {
+      showGlassLikeSurfaceDialog<void>(
+        context: context,
+        builder: (context) => GlassLikeSurfaceDialog(
+          config: _config,
+          title: const Text('Session expired'),
+          content: const Text('Please sign in again to continue.'),
+          actions: [
+            GlassLikeSurfaceDialogAction(
+              child: const Text('Cancel'),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            GlassLikeSurfaceDialogAction(
+              isDefaultAction: true,
+              child: const Text('Sign in'),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       body: Stack(
         children: [
@@ -91,7 +114,7 @@ class LiquidGlassDemoPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Liquid Glass Demo',
+                    'Glass Demo',
                     style: Theme.of(context)
                         .textTheme
                         .headlineMedium
@@ -103,7 +126,7 @@ class LiquidGlassDemoPage extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   const SizedBox(height: 24),
-                  LiquidGlassSurface(
+                  GlassLikeSurface(
                     config: _config,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,7 +168,7 @@ class LiquidGlassDemoPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  const LiquidGlassGroup(
+                  const GlassLikeSurfaceGroup(
                     child: Wrap(
                       spacing: 16,
                       runSpacing: 16,
@@ -157,7 +180,7 @@ class LiquidGlassDemoPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  LiquidGlassSurface(
+                  GlassLikeSurface(
                     config: _config,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,6 +211,14 @@ class LiquidGlassDemoPage extends StatelessWidget {
                               ),
                             ),
                           ],
+                        ),
+                        const SizedBox(height: 16),
+                        SizedBox(
+                          width: double.infinity,
+                          child: TextButton(
+                            onPressed: showDemoDialog,
+                            child: const Text('Show dialog'),
+                          ),
                         ),
                       ],
                     ),
@@ -289,7 +320,7 @@ class _MetricCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 150,
-      child: LiquidGlassSurface(
+      child: GlassLikeSurface(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -303,7 +334,7 @@ class _MetricCard extends StatelessWidget {
                   ?.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
-            const LiquidGlassForeground(
+            const GlassLikeSurfaceForeground(
               child: Text('Live update'),
             ),
           ],

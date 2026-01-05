@@ -1,5 +1,5 @@
-name: liquid_glass_example
-description: Example app for the liquid_glass package.
+name: glass_like_surface_example
+description: Example app for the glass_like_surface package.
 publish_to: 'none'
 
 version: 0.1.0
@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  liquid_glass:
+  glass_like_surface:
     path: ../
 
 dev_dependencies:

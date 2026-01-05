@@ -1,6 +1,6 @@
-# liquid_glass
+# glass_like_surface
 
-A Flutter package that recreates an iOS-style liquid glass material with blur, refraction-like distortion, adaptive tinting, and highlight rendering.
+A Flutter package that recreates an iOS liquid glass like material with blur, refraction-like distortion, adaptive tinting, and highlight rendering.
 
 ## Features
 
@@ -16,20 +16,20 @@ Add the dependency to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  liquid_glass: ^<latest>
+  glass_like_surface: ^<latest>
 ```
 
 ## Quick Start
 
-Wrap your app with `LiquidGlassAppRoot`, then use `LiquidGlassSurface` where you want glass:
+Wrap your app with `GlassLikeSurfaceAppRoot`, then use `GlassLikeSurface` where you want glass:
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:liquid_glass/liquid_glass.dart';
+import 'package:glass_like_surface/glass_like_surface.dart';
 
 void main() {
   runApp(
-    const LiquidGlassAppRoot(
+    const GlassLikeSurfaceAppRoot(
       child: MyApp(),
     ),
   );
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: LiquidGlassSurface(
+          child: GlassLikeSurface(
             child: const Text('Liquid Glass'),
           ),
         ),
@@ -55,10 +55,10 @@ class MyApp extends StatelessWidget {
 
 ## Configuration
 
-Control the look and behavior through `LiquidGlassConfig`:
+Control the look and behavior through `GlassLikeSurfaceConfig`:
 
 ```dart
-final config = LiquidGlassConfig(
+final config = GlassLikeSurfaceConfig(
   blurSigma: 20,
   distortionStrength: 0.03,
   tintColor: const Color(0x66FFFFFF),
@@ -71,7 +71,7 @@ final config = LiquidGlassConfig(
   enablePointerParallax: true,
 );
 
-LiquidGlassSurface(
+GlassLikeSurface(
   config: config,
   child: const Text('Configurable Glass'),
 );
@@ -85,7 +85,7 @@ system-like glass effect, but you can push them for a stronger look.
 | Field | Default | Details |
 | --- | --- | --- |
 | `blurSigma` | `20` | Gaussian blur radius. Higher = softer background, more GPU cost. |
-| `blurDownsample` | `1.0` | Downsample factor for blur (>= 1.0). Higher values reduce cost but soften detail. `LiquidGlassGroup` clamps this to 4.0. |
+| `blurDownsample` | `1.0` | Downsample factor for blur (>= 1.0). Higher values reduce cost but soften detail. `GlassLikeSurfaceGroup` clamps this to 4.0. |
 | `distortionStrength` | `0.03` | Strength of the refraction-like distortion. Set to `0.0` for a pure blur. |
 | `tintColor` | `Color(0x66FFFFFF)` | Base tint over the glass. Alpha controls material density. |
 | `adaptiveTint` | `false` | When true, samples the background and blends `tintColor` toward the average color. |
@@ -99,17 +99,17 @@ system-like glass effect, but you can push them for a stronger look.
 
 ## Shared Blur Groups
 
-If you place multiple glass surfaces in the same area, wrap them in `LiquidGlassGroup`
+If you place multiple glass surfaces in the same area, wrap them in `GlassLikeSurfaceGroup`
 to share a single blur pass:
 
 ```dart
-LiquidGlassGroup(
+GlassLikeSurfaceGroup(
   child: Wrap(
     spacing: 16,
     runSpacing: 16,
     children: const [
-      LiquidGlassSurface(child: Text('A')),
-      LiquidGlassSurface(child: Text('B')),
+      GlassLikeSurface(child: Text('A')),
+      GlassLikeSurface(child: Text('B')),
     ],
   ),
 );
@@ -118,22 +118,22 @@ LiquidGlassGroup(
 ## Merged Surfaces
 
 To merge multiple glass cards into a single continuous surface, use
-`LiquidGlassMergeGroup` with `LiquidGlassMergeTarget`. This mimics the native
+`GlassLikeSurfaceMergeGroup` with `GlassLikeSurfaceMergeTarget`. This mimics the native
 "glass container" behavior and eliminates seams between adjacent cards.
 
 ```dart
-LiquidGlassMergeGroup(
+GlassLikeSurfaceMergeGroup(
   child: Wrap(
     spacing: 16,
     runSpacing: 16,
     children: const [
-      LiquidGlassMergeTarget(
+      GlassLikeSurfaceMergeTarget(
         child: Text('A'),
       ),
-      LiquidGlassMergeTarget(
+      GlassLikeSurfaceMergeTarget(
         child: Text('B'),
       ),
-      LiquidGlassMergeTarget(
+      GlassLikeSurfaceMergeTarget(
         child: Text('C'),
       ),
     ],
@@ -141,17 +141,17 @@ LiquidGlassMergeGroup(
 );
 ```
 
-Each `LiquidGlassMergeTarget` can specify its own `borderRadius` and `padding`
+Each `GlassLikeSurfaceMergeTarget` can specify its own `borderRadius` and `padding`
 to control the merged outline.
 
 ## Foreground Styling
 
-Use `LiquidGlassForeground` to automatically choose a readable text/icon color
+Use `GlassLikeSurfaceForeground` to automatically choose a readable text/icon color
 based on the resolved glass brightness:
 
 ```dart
-LiquidGlassSurface(
-  child: const LiquidGlassForeground(
+GlassLikeSurface(
+  child: const GlassLikeSurfaceForeground(
     child: Text('Readable on Glass'),
   ),
 );
@@ -159,9 +159,9 @@ LiquidGlassSurface(
 
 ## Notes
 
-- `LiquidGlassAppRoot` tracks pointer position and provides a repaint boundary
+- `GlassLikeSurfaceAppRoot` tracks pointer position and provides a repaint boundary
   required for adaptive tint sampling.
-- Use `reduceTransparency` or `reduceMotion` in `LiquidGlassConfig` to respect
+- Use `reduceTransparency` or `reduceMotion` in `GlassLikeSurfaceConfig` to respect
   accessibility preferences.
 
 ## Example

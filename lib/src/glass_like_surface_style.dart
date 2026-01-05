@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LiquidGlassStyleScope extends InheritedWidget {
-  const LiquidGlassStyleScope({
+class GlassLikeSurfaceStyleScope extends InheritedWidget {
+  const GlassLikeSurfaceStyleScope({
     super.key,
     required this.brightness,
     required super.child,
@@ -9,18 +9,18 @@ class LiquidGlassStyleScope extends InheritedWidget {
 
   final Brightness brightness;
 
-  static LiquidGlassStyleScope? maybeOf(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<LiquidGlassStyleScope>();
+  static GlassLikeSurfaceStyleScope? maybeOf(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<GlassLikeSurfaceStyleScope>();
   }
 
   @override
-  bool updateShouldNotify(LiquidGlassStyleScope oldWidget) {
+  bool updateShouldNotify(GlassLikeSurfaceStyleScope oldWidget) {
     return oldWidget.brightness != brightness;
   }
 }
 
-class LiquidGlassForeground extends StatelessWidget {
-  const LiquidGlassForeground({
+class GlassLikeSurfaceForeground extends StatelessWidget {
+  const GlassLikeSurfaceForeground({
     super.key,
     required this.child,
     this.lightColor = const Color(0xFF0A0A0A),
@@ -33,7 +33,7 @@ class LiquidGlassForeground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = LiquidGlassStyleScope.maybeOf(context);
+    final style = GlassLikeSurfaceStyleScope.maybeOf(context);
     final brightness = style?.brightness ?? Theme.of(context).brightness;
     final color = brightness == Brightness.light ? lightColor : darkColor;
 

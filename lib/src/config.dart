@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 
 @immutable
-class LiquidGlassConfig {
-  const LiquidGlassConfig({
+class GlassLikeSurfaceConfig {
+  const GlassLikeSurfaceConfig({
     this.blurSigma = 20,
     this.distortionStrength = 0.03,
     this.tintColor = const Color(0x66FFFFFF),
@@ -32,7 +32,7 @@ class LiquidGlassConfig {
   final bool reduceMotion;
   final bool enablePointerParallax;
 
-  LiquidGlassConfig copyWith({
+  GlassLikeSurfaceConfig copyWith({
     double? blurSigma,
     double? distortionStrength,
     Color? tintColor,
@@ -46,7 +46,7 @@ class LiquidGlassConfig {
     bool? reduceMotion,
     bool? enablePointerParallax,
   }) {
-    return LiquidGlassConfig(
+    return GlassLikeSurfaceConfig(
       blurSigma: blurSigma ?? this.blurSigma,
       distortionStrength: distortionStrength ?? this.distortionStrength,
       tintColor: tintColor ?? this.tintColor,

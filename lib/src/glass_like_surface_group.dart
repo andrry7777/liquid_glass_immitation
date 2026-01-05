@@ -3,10 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import 'config.dart';
-import 'liquid_glass_app_root.dart';
+import 'glass_like_surface_app_root.dart';
 
-class LiquidGlassGroup extends StatelessWidget {
-  const LiquidGlassGroup({
+class GlassLikeSurfaceGroup extends StatelessWidget {
+  const GlassLikeSurfaceGroup({
     super.key,
     required this.child,
     this.config,
@@ -14,12 +14,12 @@ class LiquidGlassGroup extends StatelessWidget {
   });
 
   final Widget child;
-  final LiquidGlassConfig? config;
+  final GlassLikeSurfaceConfig? config;
   final bool clipRect;
 
   @override
   Widget build(BuildContext context) {
-    final scopeConfig = liquidGlassConfigOf(context);
+    final scopeConfig = glassLikeSurfaceConfigOf(context);
     final effectiveConfig = config ?? scopeConfig;
     final blurSigma = effectiveConfig.reduceTransparency
         ? effectiveConfig.blurSigma * 0.4
@@ -35,22 +35,22 @@ class LiquidGlassGroup extends StatelessWidget {
       child: child,
     );
 
-    return LiquidGlassGroupScope(
+    return GlassLikeSurfaceGroupScope(
       child: clipRect ? ClipRect(child: content) : content,
     );
   }
 }
 
-class LiquidGlassGroupScope extends InheritedWidget {
-  const LiquidGlassGroupScope({
+class GlassLikeSurfaceGroupScope extends InheritedWidget {
+  const GlassLikeSurfaceGroupScope({
     super.key,
     required super.child,
   });
 
-  static LiquidGlassGroupScope? maybeOf(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<LiquidGlassGroupScope>();
+  static GlassLikeSurfaceGroupScope? maybeOf(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<GlassLikeSurfaceGroupScope>();
   }
 
   @override
-  bool updateShouldNotify(LiquidGlassGroupScope oldWidget) => false;
+  bool updateShouldNotify(GlassLikeSurfaceGroupScope oldWidget) => false;
 }

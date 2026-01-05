@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import 'config.dart';
-import 'liquid_glass_app_root.dart';
-import 'liquid_glass_group.dart';
-import 'liquid_glass_style.dart';
+import 'glass_like_surface_app_root.dart';
+import 'glass_like_surface_group.dart';
+import 'glass_like_surface_style.dart';
 import 'matrix_utils.dart';
 
-class LiquidGlassSurface extends StatefulWidget {
-  const LiquidGlassSurface({
+class GlassLikeSurface extends StatefulWidget {
+  const GlassLikeSurface({
     super.key,
     required this.child,
     this.borderRadius = const BorderRadius.all(Radius.circular(24)),
@@ -25,13 +25,13 @@ class LiquidGlassSurface extends StatefulWidget {
   final BorderRadius borderRadius;
   final EdgeInsets? padding;
   final EdgeInsets? margin;
-  final LiquidGlassConfig? config;
+  final GlassLikeSurfaceConfig? config;
 
   @override
-  State<LiquidGlassSurface> createState() => _LiquidGlassSurfaceState();
+  State<GlassLikeSurface> createState() => _GlassLikeSurfaceState();
 }
 
-class _LiquidGlassSurfaceState extends State<LiquidGlassSurface> {
+class _GlassLikeSurfaceState extends State<GlassLikeSurface> {
   Color? _adaptiveTint;
   Brightness? _adaptiveBrightness;
   Timer? _toneMappingTimer;
@@ -43,7 +43,7 @@ class _LiquidGlassSurfaceState extends State<LiquidGlassSurface> {
   }
 
   @override
-  void didUpdateWidget(LiquidGlassSurface oldWidget) {
+  void didUpdateWidget(GlassLikeSurface oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.config != widget.config) {
       _scheduleToneMapping();
@@ -58,11 +58,11 @@ class _LiquidGlassSurfaceState extends State<LiquidGlassSurface> {
 
   @override
   Widget build(BuildContext context) {
-    final scopeConfig = liquidGlassConfigOf(context);
+    final scopeConfig = glassLikeSurfaceConfigOf(context);
     final effectiveConfig = widget.config ?? scopeConfig;
-    final pointerOffset = liquidGlassPointerOffsetOf(context);
-    final motionOffset = liquidGlassMotionOffsetOf(context);
-    final groupScope = LiquidGlassGroupScope.maybeOf(context);
+    final pointerOffset = glassLikeSurfacePointerOffsetOf(context);
+    final motionOffset = glassLikeSurfaceMotionOffsetOf(context);
+    final groupScope = GlassLikeSurfaceGroupScope.maybeOf(context);
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -123,7 +123,7 @@ class _LiquidGlassSurfaceState extends State<LiquidGlassSurface> {
                     highlightStrength: effectiveConfig.highlightStrength,
                     pointerOffset: offset,
                   ),
-                  child: LiquidGlassStyleScope(
+                  child: GlassLikeSurfaceStyleScope(
                     brightness: foreground,
                     child: Padding(
                       padding: widget.padding ?? const EdgeInsets.all(16),
@@ -159,7 +159,7 @@ class _LiquidGlassSurfaceState extends State<LiquidGlassSurface> {
 
   void _scheduleToneMapping() {
     _toneMappingTimer?.cancel();
-    final config = widget.config ?? const LiquidGlassConfig();
+    final config = widget.config ?? const GlassLikeSurfaceConfig();
     if (!config.adaptiveTint) {
       return;
     }
@@ -170,11 +170,11 @@ class _LiquidGlassSurfaceState extends State<LiquidGlassSurface> {
     if (!mounted) {
       return;
     }
-    final config = widget.config ?? liquidGlassConfigOf(context);
+    final config = widget.config ?? glassLikeSurfaceConfigOf(context);
     if (!config.adaptiveTint) {
       return;
     }
-    final boundaryKey = liquidGlassRepaintBoundaryKeyOf(context);
+    final boundaryKey = glassLikeSurfaceRepaintBoundaryKeyOf(context);
     final boundaryContext = boundaryKey?.currentContext;
     if (boundaryContext == null) {
       return;

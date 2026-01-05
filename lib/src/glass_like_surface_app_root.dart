@@ -3,23 +3,23 @@ import 'package:flutter/material.dart';
 
 import 'config.dart';
 
-class LiquidGlassAppRoot extends StatefulWidget {
-  const LiquidGlassAppRoot({
+class GlassLikeSurfaceAppRoot extends StatefulWidget {
+  const GlassLikeSurfaceAppRoot({
     super.key,
     required this.child,
-    this.config = const LiquidGlassConfig(),
+    this.config = const GlassLikeSurfaceConfig(),
     this.motionOffsetListenable,
   });
 
   final Widget child;
-  final LiquidGlassConfig config;
+  final GlassLikeSurfaceConfig config;
   final ValueListenable<Offset>? motionOffsetListenable;
 
   @override
-  State<LiquidGlassAppRoot> createState() => _LiquidGlassAppRootState();
+  State<GlassLikeSurfaceAppRoot> createState() => _GlassLikeSurfaceAppRootState();
 }
 
-class _LiquidGlassAppRootState extends State<LiquidGlassAppRoot>
+class _GlassLikeSurfaceAppRootState extends State<GlassLikeSurfaceAppRoot>
     with SingleTickerProviderStateMixin {
   Offset _pointerOffset = Offset.zero;
   Offset _motionOffset = Offset.zero;
@@ -45,7 +45,7 @@ class _LiquidGlassAppRootState extends State<LiquidGlassAppRoot>
   }
 
   @override
-  void didUpdateWidget(LiquidGlassAppRoot oldWidget) {
+  void didUpdateWidget(GlassLikeSurfaceAppRoot oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.motionOffsetListenable != widget.motionOffsetListenable) {
       oldWidget.motionOffsetListenable?.removeListener(_handleMotionUpdate);
@@ -128,7 +128,7 @@ class _LiquidGlassAppRootState extends State<LiquidGlassAppRoot>
 
   @override
   Widget build(BuildContext context) {
-    return _LiquidGlassScope(
+    return _GlassLikeSurfaceScope(
       config: widget.config,
       pointerOffset: _pointerOffset,
       motionOffset: _motionOffset,
@@ -148,8 +148,8 @@ class _LiquidGlassAppRootState extends State<LiquidGlassAppRoot>
   }
 }
 
-class _LiquidGlassScope extends InheritedWidget {
-  const _LiquidGlassScope({
+class _GlassLikeSurfaceScope extends InheritedWidget {
+  const _GlassLikeSurfaceScope({
     required this.config,
     required this.pointerOffset,
     required this.motionOffset,
@@ -157,17 +157,17 @@ class _LiquidGlassScope extends InheritedWidget {
     required super.child,
   });
 
-  final LiquidGlassConfig config;
+  final GlassLikeSurfaceConfig config;
   final Offset pointerOffset;
   final Offset motionOffset;
   final GlobalKey repaintBoundaryKey;
 
-  static _LiquidGlassScope? maybeOf(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<_LiquidGlassScope>();
+  static _GlassLikeSurfaceScope? maybeOf(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<_GlassLikeSurfaceScope>();
   }
 
   @override
-  bool updateShouldNotify(_LiquidGlassScope oldWidget) {
+  bool updateShouldNotify(_GlassLikeSurfaceScope oldWidget) {
     return config != oldWidget.config ||
         pointerOffset != oldWidget.pointerOffset ||
         motionOffset != oldWidget.motionOffset ||
@@ -175,19 +175,19 @@ class _LiquidGlassScope extends InheritedWidget {
   }
 }
 
-LiquidGlassConfig liquidGlassConfigOf(BuildContext context) {
-  return _LiquidGlassScope.maybeOf(context)?.config ??
-      const LiquidGlassConfig();
+GlassLikeSurfaceConfig glassLikeSurfaceConfigOf(BuildContext context) {
+  return _GlassLikeSurfaceScope.maybeOf(context)?.config ??
+      const GlassLikeSurfaceConfig();
 }
 
-Offset liquidGlassPointerOffsetOf(BuildContext context) {
-  return _LiquidGlassScope.maybeOf(context)?.pointerOffset ?? Offset.zero;
+Offset glassLikeSurfacePointerOffsetOf(BuildContext context) {
+  return _GlassLikeSurfaceScope.maybeOf(context)?.pointerOffset ?? Offset.zero;
 }
 
-Offset liquidGlassMotionOffsetOf(BuildContext context) {
-  return _LiquidGlassScope.maybeOf(context)?.motionOffset ?? Offset.zero;
+Offset glassLikeSurfaceMotionOffsetOf(BuildContext context) {
+  return _GlassLikeSurfaceScope.maybeOf(context)?.motionOffset ?? Offset.zero;
 }
 
-GlobalKey? liquidGlassRepaintBoundaryKeyOf(BuildContext context) {
-  return _LiquidGlassScope.maybeOf(context)?.repaintBoundaryKey;
+GlobalKey? glassLikeSurfaceRepaintBoundaryKeyOf(BuildContext context) {
+  return _GlassLikeSurfaceScope.maybeOf(context)?.repaintBoundaryKey;
 }

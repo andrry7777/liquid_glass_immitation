@@ -1,6 +1,6 @@
-# Liquid Glass Example
+# Glass Like Surface Example
 
-このディレクトリは `liquid_glass` パッケージの挙動を確認するためのサンプルアプリです。
+このディレクトリは `glass_like_surface` パッケージの挙動を確認するためのサンプルアプリです。
 
 ## 使い方
 
